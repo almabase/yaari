@@ -87,3 +87,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+# Pycharm related files
+yaari/.idea
+yaari/media/*
+yaari/.DS_Store
+.DS_Store

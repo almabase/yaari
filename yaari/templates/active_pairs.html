@@ -1,0 +1,15 @@
+<h1> Active Pairs </h1>
+<h2> {{ pair_week_label }}</h2>
+{% for pair_data in active_pairs.values %}
+    <tr>
+        <td><img src="{{ pair_data.0.employee_one.profile_pic.url }}" height="100"></td>
+        <td>{{ pair_data.0.employee_one.name }}</td>
+        <td>&nbsp</td>
+        <td>{{pair_data.1}}</td>
+        <td>&nbsp</td>
+        <td>{{pair_data.2}}</td>
+        <td>&nbsp</td>
+        <td>{{ pair_data.0.employee_two.name }}</td>
+        <td><img src="{{ pair_data.0.employee_two.profile_pic.url }}" height="100"></td>
+    </tr>
+{% endfor %}
