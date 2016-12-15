@@ -81,7 +81,3 @@ class HistoryView(TemplateView):
 
         context["data"] = historical_activity
         return context
-
-
-class HistoryView(TemplateView):
-
