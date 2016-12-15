@@ -119,7 +119,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+
+PROJECT_APP_DIR = os.path.dirname(__file__)
+PROJECT_DIR = os.path.dirname(PROJECT_APP_DIR)
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'sitestatic')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -128,5 +134,13 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+# Load the local settings
+# This should be at the end for overriding
+try:
+   from .settings_local import *
+except ImportError:
+   print("You don't have a settings_local file")
+   raise
 
 

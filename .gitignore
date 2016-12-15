@@ -92,5 +92,6 @@ ENV/
 # Pycharm related files
 yaari/.idea
 yaari/media/*
+yaari/sitestatic/*
 yaari/.DS_Store
 .DS_Store
