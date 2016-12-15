@@ -42,9 +42,7 @@ class PairCall(models.Model):
 
 """
 class TimeLapse(models.Model):
-    """
     Used to generate pairs
-    """
     primary_employee = models.ForeignKey(Employee, related_name='employee_one')
     seconday_employee = models.ForeignKey(Employee, related_name='employee_two')
     is_same_team = models.BooleanField() #Are the two employees from the same team
