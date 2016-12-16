@@ -55,16 +55,14 @@ class HistoryView(TemplateView):
         context = {}
 
         today = datetime.date.today()
-
-        #As its historical data, we don't consider current week's activity
-        last_week_monday = today - datetime.timedelta(days=7 + today.weekday())
+        this_monday = today - datetime.timedelta(days=today.weekday())
 
         first_paircall_date = PairCall.objects.all().aggregate(first_paircall_date=Min('date'))["first_paircall_date"]
         first_monday = first_paircall_date - datetime.timedelta(days=first_paircall_date.weekday())
 
         historical_activity = []
-        for i in range(0, (last_week_monday - first_monday).days + 1, 7):
-            monday = last_week_monday - datetime.timedelta(i)
+        for i in range(0, (this_monday - first_monday).days + 1, 7):
+            monday = this_monday - datetime.timedelta(i)
             friday = monday + datetime.timedelta(5)
             pair_week_label = get_pair_week_label(monday, friday)
             pair_calls = PairCall.objects.filter(date__range= [monday, friday]).order_by('date')
