@@ -1,15 +1,32 @@
-<h1> Active Pairs </h1>
-<h2> {{ pair_week_label }}</h2>
-{% for pair_data in active_pairs.values %}
-    <tr>
-        <td><img src="{{ pair_data.0.employee_one.profile_pic.url }}" height="100"></td>
-        <td>{{ pair_data.0.employee_one.name }}</td>
-        <td>&nbsp</td>
-        <td>{{pair_data.1}}</td>
-        <td>&nbsp</td>
-        <td>{{pair_data.2}}</td>
-        <td>&nbsp</td>
-        <td>{{ pair_data.0.employee_two.name }}</td>
-        <td><img src="{{ pair_data.0.employee_two.profile_pic.url }}" height="100"></td>
-    </tr>
-{% endfor %}
+{% extends "base.html" %}
+
+
+{% block body %}
+<div id="active_pairs_page" class="page text-center">
+    <div id="header_section">
+        <div class="heading">
+            <p>Active Pairs</p>
+        </div>
+        <div class="subheading">
+            <p>{{ pair_week_label }}</p>
+        </div>
+    </div>
+    <div id="active_pairs_table">
+    {% for pair_data in active_pairs.values %}
+        <div class="row">
+            <div class="column large-5 small-5">
+                <img src="{{ pair_data.0.employee_one.profile_pic.url }}" class="profile_picture">
+            </div>
+            <div class="column large-2 small-2">
+                <div class="square {% if pair_data.1 %}green{% endif %}"></div>
+                <div class="square {% if pair_data.2 %}green{% endif %}"></div>
+                <div class="cB"></div>
+            </div>
+            <div class="column large-5 small-5">
+                <img src="{{ pair_data.0.employee_two.profile_pic.url }}" class="profile_picture">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

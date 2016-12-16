@@ -38,8 +38,8 @@ def get_paircall_metadata(paircall):
     Meta data of a paircall -> [Paircall status, Paircall Image, Paircall Caption]
     If Image or Caption is empty, then put False
     """
-    return [paircall.is_done, paircall.picture.url if paircall.picture else False,
-                paircall.caption if paircall.caption else False]
+    return [paircall.is_done, paircall.picture.url if paircall.picture else "",
+                paircall.caption if paircall.caption else ""]
 
 def get_pair_from_employees(emp1, emp2):
     return Pair.objects.filter(employee_one__in = [emp1, emp2], employee_two__in = [emp1, emp2])[0]

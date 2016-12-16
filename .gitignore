@@ -95,3 +95,4 @@ yaari/media/*
 yaari/sitestatic/*
 yaari/.DS_Store
 .DS_Store
+yaari/yaari/settings_local.py

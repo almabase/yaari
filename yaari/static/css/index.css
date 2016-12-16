@@ -1,0 +1,111 @@
+
+body {
+	background-color: #eee;
+}
+
+.cB{
+	clear: both;
+}
+
+.page {
+	max-width: 980px;
+	margin: 0 auto;
+}
+
+#active_pairs_page #header_section {
+	max-width: 200px;
+	margin: 0 auto;
+}
+
+#active_pairs_page div.heading p {
+	font-size: 18px;	
+}
+
+#active_pairs_page div.subheading p {
+	font-size: 14px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+#active_pairs_page #active_pairs_table {
+	max-width: 520px;
+	margin: 0 auto;
+}
+
+#active_pairs_page .square {
+	width: 20px;
+	height: 20px;
+	background-color: #999;
+	float: left;
+	margin-right: 5px;
+	margin-top: 70px;
+}
+
+#active_pairs_page .square.green {
+	background-color: #0f0;
+}
+
+#active_pairs_page #active_pairs_table .row {
+	margin-top: 50px;
+}
+
+
+#active_pairs_page #active_pairs_table img.profile_picture {
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
+	border: 2px solid #fff;
+}
+
+@media only screen and (max-width: 520px) {
+	#active_pairs_page #active_pairs_table img.profile_picture {
+		width: 100px;
+		height: 100px;
+	}
+	#active_pairs_page .square {
+		width: 8px;
+		height: 8px;
+		margin-right: 3px;
+		margin-top: 40px;
+	}
+}
+
+
+/* History page */
+
+#history_page #header_section {
+	max-width: 200px;
+	margin: 0 auto;
+}
+
+#history_page div.heading p {
+	font-size: 18px;
+	margin: 35px 0;
+}
+
+#history_page #history_table div.subheading p {
+	font-size: 14px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+	max-width: 200px;
+	margin: 0 auto 28px;
+}
+
+#history_page #history_table img.profile_picture {
+	height: 50px;
+	width: 50px;
+	border-radius: 100%;
+	border: 2px solid #fff;
+	margin-bottom: 21px;
+}
+
+#history_page div.row {
+	margin-bottom: 40px;
+}
+
+#history_page div.paircall_caption p {
+	margin-top: 10px;
+	text-align: left;
+	font-style: italic;
+	padding: 0 7px;
+}
