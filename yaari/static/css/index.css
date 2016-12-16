@@ -9,7 +9,7 @@ body {
 
 .page {
 	max-width: 980px;
-	margin: 0 auto;
+	margin: 50px auto;
 }
 
 #active_pairs_page #header_section {
