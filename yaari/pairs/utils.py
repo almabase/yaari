@@ -1,6 +1,7 @@
 import datetime
+import itertools
 
-from models import PairCall
+from models import PairCall, Employee, Pair
 
 
 def get_pair_week(call_date):
@@ -44,44 +45,15 @@ def get_paircall_metadata(paircall):
 def get_pair_from_employees(emp1, emp2):
     return Pair.objects.filter(employee_one__in = [emp1, emp2], employee_two__in = [emp1, emp2])[0]
 
-def get_time_elapsed(emp1, emp2):
-    pair = get_pair_from_employees(emp1, emp2)
 
-    paircalls = PairCall.objects.filter(pair=pair).order_by('-date')
+def populate_new_pairs():
+    employees_set = Employee.objects.all().values_list("id", flat=True)
+    all_pairs_iter = itertools.combinations(employees_set, 2)
 
-    if paircalls:
-        today = datetime.date.today()
-        last_call_date = paircalls[0].date
-        return (today - last_call_date).days
-    else:
-        return -1
+    current_pairs = []
+    for pair in Pair.objects.all():
+        current_pairs.append(set((pair.employee_one.id, pair.employee_two.id)))
 
-
-def populate_interaction_analytics():
-    for tl in TimeLapse.objects.all():
-        tl.objects.save()
-    pass
-
-def generate_pairs(week_starting_date):
-
-    """
-    Create a 'Last interaction' table
-
-    For every pair, store the below two details
-        - the last time they have spoken to each other,
-        - if they are from the same team
-
-    For an employee from randomized employee pool:
-
-        - randomly try to pick a diff team member that he has never spoken to
-        - If failure, randomly try to pick a same team member he has never spoken to
-        - If failure, find the list of employees with longest interaction gap
-        - randomly try to pick a diff team member from above list
-        - If failure, randomly pick a same team member from above list
-
-    - At anypoint, if success, remove that matched team member from the pool and loop
-    """
-
-    populate_interaction_analytics()
-
-
+    for pair in all_pairs_iter:
+        if not set(pair) in current_pairs:
+            Pair.objects.create(employee_one_id = pair[0], employee_two_id = pair[1])
