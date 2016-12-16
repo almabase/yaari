@@ -74,10 +74,14 @@ class HistoryView(TemplateView):
                 if week_activity.has_key(pair):
                     week_activity[pair][2].append(get_paircall_metadata(pair_call))
                 else:
-                    week_activity[pair] = [pair.employee_one.profile_pic.url, pair.employee_two.profile_pic.url]
+                    week_activity[pair] = [pair.employee_one.profile_pic.url if pair.employee_one.profile_pic else None
+                        , pair.employee_two.profile_pic.url if pair.employee_two.profile_pic else None]
                     week_activity[pair].append([get_paircall_metadata(pair_call)])
             if week_activity:
                 historical_activity.append([pair_week_label, week_activity.values()])
 
         context["data"] = historical_activity
         return context
+
+
+
