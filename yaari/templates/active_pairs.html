@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+<script type="text/javascript">
+$(function() {
+    $('#navigation #nav_active_pairs').addClass('active');
+});
+</script>
+{% endblock scripts %}
 
 {% block body %}
 <div id="active_pairs_page" class="page text-center">
     <div id="header_section">
         <div class="heading">
-            <p>Active Pairs</p>
+            <img src="/static/img/active_pairs.png" title="Active Pairs">
         </div>
         <div class="subheading">
             <p>{{ pair_week_label }}</p>

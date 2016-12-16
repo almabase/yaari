@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+<script type="text/javascript">
+$(function() {
+    $('#navigation #nav_history').addClass('active');
+});
+</script>
+{% endblock scripts %}
 
 {% block body %}
 <div id="history_page" class="page text-center">
     <div id="header_section">
         <div class="heading">
-            <p>History</p>
+            <img src="/static/img/history.png" title="History">
         </div>
     </div>
     <div id="history_table">

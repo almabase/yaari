@@ -1,6 +1,7 @@
 
 body {
 	background-color: #eee;
+	font-family: "proxima-nova";
 }
 
 .cB{
@@ -9,16 +10,43 @@ body {
 
 .page {
 	max-width: 980px;
-	margin: 50px auto;
+	margin: 14px auto 50px;
 }
+
+#navigation {
+	max-width: 980px;
+	margin: 14px auto;
+}
+
+#navigation ul {
+	list-style: none;
+	float: right;
+}
+
+#navigation ul li {
+	display: inline-block;
+	padding: 7px;
+}
+
+#navigation ul li a {
+	text-transform: uppercase;
+	font-size: 13px;
+}
+
+#navigation ul li.active a {
+	cursor: text;
+	color: #999;
+}
+
+/* Active pairs page */
 
 #active_pairs_page #header_section {
 	max-width: 200px;
 	margin: 0 auto;
 }
 
-#active_pairs_page div.heading p {
-	font-size: 18px;	
+#active_pairs_page div.heading img {
+	margin-bottom: 14px;
 }
 
 #active_pairs_page div.subheading p {
@@ -78,9 +106,8 @@ body {
 	margin: 0 auto;
 }
 
-#history_page div.heading p {
-	font-size: 18px;
-	margin: 35px 0;
+#history_page div.heading img {
+	margin-bottom: 14px;
 }
 
 #history_page #history_table div.subheading p {
@@ -92,8 +119,8 @@ body {
 }
 
 #history_page #history_table img.profile_picture {
-	height: 50px;
-	width: 50px;
+	height: 60px;
+	width: 60px;
 	border-radius: 100%;
 	border: 2px solid #fff;
 	margin-bottom: 21px;
@@ -101,6 +128,11 @@ body {
 
 #history_page div.row {
 	margin-bottom: 40px;
+}
+
+#history_page div.paircall_picture {
+	display: block;
+	width: 100%;
 }
 
 #history_page div.paircall_caption p {
