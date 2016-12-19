@@ -19,6 +19,10 @@ $(function() {
         </div>
     </div>
     <div id="active_pairs_table">
+
+        {% if not active_pairs.values|length %}
+                <p> Pairs not yet generated, please check with the admin.</p>
+        {% endif %}
     {% for pair_data in active_pairs.values %}
         <div class="row">
             <div class="column large-5 small-5">

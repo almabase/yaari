@@ -40,13 +40,15 @@ class PairCall(models.Model):
                                   self.date.strftime("%b %d, '%y"))
 
 
-"""
+
 class TimeLapse(models.Model):
-    Used to generate pairs
-    primary_employee = models.ForeignKey(Employee, related_name='employee_one')
-    seconday_employee = models.ForeignKey(Employee, related_name='employee_two')
+    """
+        This is mainly used to Generate Pairs
+    """
+
+    primary_employee = models.ForeignKey(Employee, related_name='tl_employee_one')
+    secondary_employee = models.ForeignKey(Employee, related_name='tl_employee_two')
     is_same_team = models.BooleanField() #Are the two employees from the same team
-    time_lapse = models.IntegerField() # -1 if never, in days
-"""
+    time_lapse_in_days = models.IntegerField() # -1 if never, in days
 
 
