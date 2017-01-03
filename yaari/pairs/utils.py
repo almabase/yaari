@@ -114,6 +114,19 @@ def populate_timelapse_table():
             create_timelapse_for_pair(emp_one, emp_two, is_same_team(emp_one, emp_two), time_lapse_in_days)
 
 
+def getNexPairCallDates():
+    dates = []
+
+    current_date = datetime.datetime.today()
+
+    if(current_date.weekday() > 1):
+      valid_monday_date = current_date + datetime.timedelta(7 - current_date.weekday())
+    else:
+        valid_monday_date = current_date + datetime.timedelta(-current_date.weekday())
+    dates.append(valid_monday_date + datetime.timedelta(1))
+    dates.append(valid_monday_date + datetime.timedelta(3))
+    return dates
+
 def generate_new_pairs():
 
     """
@@ -139,23 +152,24 @@ def generate_new_pairs():
 
     populate_timelapse_table()
 
-    employees_list = list(Employee.objects.all())
+    employees_list = list(Employee.objects.filter(availability=True))
     random.shuffle(employees_list)
 
-    #coming Monday
-    new_paircall_date = datetime.date.today()
-    while new_paircall_date.weekday() != 0:
-        new_paircall_date += datetime.timedelta(1)
+    dates = getNexPairCallDates()
+    if PairCall.objects.filter(date=dates[0]):
+        return "pairs already generated for this week"
 
-    for emp_one in employees_list:
+    while len(employees_list) > 0:
+        emp_one = employees_list[0]
         #Select a non-team member at random with whom he has never spoken before
-        tl_list = TimeLapse.objects.filter(primary_employee=emp_one, secondary_employee__in = employees_list,
-                                           is_same_team=False, time_lapse_in_days=-1)
+        timelapsedata = TimeLapse.objects.filter(primary_employee=emp_one)
+        tl_list = timelapsedata.filter(secondary_employee__in = employees_list,
+                                          is_same_team=False, time_lapse_in_days=-1)
         if tl_list:
             emp_two = random.choice(tl_list).secondary_employee
         else:
             #select a team member at random with whom he has never spoken before
-            tl_list = TimeLapse.objects.filter(primary_employee=emp_one, secondary_employee__in=employees_list,
+            tl_list = timelapsedata.filter(secondary_employee__in=employees_list,
                                                is_same_team=True, time_lapse_in_days=-1)
             if tl_list:
                 emp_two = random.choice(tl_list).secondary_employee
@@ -163,21 +177,25 @@ def generate_new_pairs():
                 max_timelapse = TimeLapse.objects.filter(primary_employee=emp_one).order_by('-time_lapse_in_days')[0]\
                                 .time_lapse_in_days
                 #Select a non-team member with whom TimeLapse is greatest
-                tl_list = TimeLapse.objects.filter(primary_employee=emp_one, secondary_employee__in=employees_list,
-                                           is_same_team=False, time_lapse_in_days=max_timelapse)
+                timelapsedata = timelapsedata.filter(secondary_employee__in=employees_list,
+                                                     time_lapse_in_days=max_timelapse)
+                tl_list = timelapsedata.filter(is_same_team=False)
                 if tl_list:
                     emp_two = random.choice(tl_list).secondary_employee
                 else:
                     # Select a team member with whom TimeLapse is greatest
-                    tl_list = TimeLapse.objects.filter(primary_employee=emp_one, secondary_employee__in=employees_list,
-                                                       is_same_team=True, time_lapse_in_days=max_timelapse)
-                    emp_two = random.choice(tl_list.filter(is_same_team=True)).secondary_employee
+                    tl_list = timelapsedata.filter(is_same_team=True)
+                    if tl_list:
+                        emp_two = random.choice(tl_list.filter(is_same_team=True)).secondary_employee
 
-        PairCall.objects.create(pair=find_pair(emp_one, emp_two), is_done=False, date=new_paircall_date)
+
         employees_list.remove(emp_one)
-        employees_list.remove(emp_two)
-
-
+        if emp_two:
+            employees_list.remove(emp_two)
+            PairCall.objects.create(pair=find_pair(emp_one, emp_two), is_done=False, date=dates[0])
+            PairCall.objects.create(pair=find_pair(emp_one, emp_two), is_done=False, date=dates[1])
+        emp_two = None
+    return "Pairs generated"
 
 
 

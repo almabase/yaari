@@ -2,10 +2,11 @@ import datetime
 
 from django.db.models import Min
 from django.views.generic.base import TemplateView
+from django.http import HttpResponse
 
 from models import PairCall
 from utils import get_pair_week, get_pair_week_label, get_paircall_metadata
-
+import utils
 
 class ActivePairsView(TemplateView):
     """ Returns a data of all the active pairs of the current week"""
@@ -29,6 +30,8 @@ class ActivePairsView(TemplateView):
         context["active_pairs"] = active_pairs
         return context
 
+def generate_pairs(response):
+    return HttpResponse(utils.generate_new_pairs())
 
 class HistoryView(TemplateView):
     """
